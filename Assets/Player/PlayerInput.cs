@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /// It ensures that the Player can never move out of bounds of the Viewport.
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     [Tooltip ("The speed at which the player moves")]
     [SerializeField] private float moveSpeed = 8f;
