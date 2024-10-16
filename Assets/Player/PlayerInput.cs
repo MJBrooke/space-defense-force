@@ -1,15 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Handles receiving Player movement input and translating that into movement within the game.
+/// It ensures that the Player can never move out of bounds of the Viewport.
+/// </summary>
+[RequireComponent(typeof(Collider2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [Tooltip ("The speed at which the player moves")]
+    [SerializeField] private float moveSpeed = 8f;
 
     private Collider2D _playerCollider;
     
+    // Stores raw movement input values from the InputSystem, making it available across the class
+    private Vector2 _movementInput; 
     
-    private Vector2 _movementInput;
-    private Vector2 _bottomLeftCorner;
+    // World-space co-ordinates of the Camera's Viewport
+    private Vector2 _bottomLeftCorner; 
     private Vector2 _topRightCorner;
 
     private void Start()
@@ -33,7 +41,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_movementInput is { x: 0, y: 0 }) return;
+        Move();
+    }
+
+    private void Move()
+    {
+        if (!IsMoving()) return;
 
         // Since we're directly assigning the Position rather than using Velocity, we need to factor in DeltaTime
         // for framerate agnostic movement speed.
@@ -47,4 +60,6 @@ public class PlayerMovement : MonoBehaviour
 
     // OnMove is automatically fired off when 'Move' input is detected by the Input System.
     private void OnMove(InputValue value) => _movementInput = value.Get<Vector2>();
+    
+    private bool IsMoving() => _movementInput != Vector2.zero;
 }
