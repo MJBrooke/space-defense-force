@@ -27,14 +27,10 @@ public class Pathfinder : MonoBehaviour
 
         // Spawn at the first waypoint
         transform.position = _waypoints[_nextWaypointIdx].position;
+        StartCoroutine(MoveTowardsNextWaypoint());
     }
 
-    private void Update()
-    {
-        MoveTowardsNextWaypoint();
-        // MoveTowardsNextWaypointFromTutorial();
-        DestroyGameObject();
-    }
+    private void Update() => DestroyGameObject();
 
     // Here is my own admittedly convoluted solution.
     // I think I did a few things badly:
@@ -47,26 +43,31 @@ public class Pathfinder : MonoBehaviour
     //   - I learnt how to move in a direction at a constant rate without using a built-in function for it. Learning FTW.
     //   - I _think_ my float comparison of the position vs the waypoint is safer, given floating point inaccuracies.
     //       I didn't want to assume I could rely on a whole number of 0. Maybe I could have rather used Epsilon?
-    private void MoveTowardsNextWaypoint()
+    private IEnumerator<int>  MoveTowardsNextWaypoint()
     {
-        if (_pathDone) return;
-
-        // Move the entity one frame closer to the target location
-        transform.position += (Vector3)_direction * (waveConfig.MoveSpeed * Time.deltaTime);
-
-        // If we are not close to the next waypoint, leave our current direction as-is to keep moving there
-        var distance = Vector2.Distance(transform.position, _waypoints[_nextWaypointIdx].position);
-        if (Mathf.Abs(distance) > 0.01f) return;
-
-        // Increment target waypoint and check if the path is complete
-        if (++_nextWaypointIdx == _waypoints.Count)
+        while (!_pathDone)
         {
-            _pathDone = true;
-            return;
-        }
+            // Move the entity one frame closer to the target location
+            transform.position += (Vector3)_direction * (waveConfig.MoveSpeed * Time.deltaTime);
 
-        // Get a Vector pointing towards the next waypoint. Normalise it to remove the distance and just retain the 'direction'.
-        _direction = (_waypoints[_nextWaypointIdx].position - transform.position).normalized;
+            // If we are not close to the next waypoint, leave our current direction as-is to keep moving there
+            var distance = Vector2.Distance(transform.position, _waypoints[_nextWaypointIdx].position);
+            if (Mathf.Abs(distance) > 0.01f)
+            {
+                yield return 0; // Wait for the next frame
+                continue;
+            }
+
+            // Increment target waypoint and check if the path is complete
+            if (++_nextWaypointIdx == _waypoints.Count)
+            {
+                _pathDone = true;
+                break;
+            }
+
+            // Get a Vector pointing towards the next waypoint. Normalise it to remove the distance and just retain the 'direction'.
+            _direction = (_waypoints[_nextWaypointIdx].position - transform.position).normalized;
+        }
     }
 
     // Here is the solution from the tutorial. It's admittedly much neater than mine since I didn't know Vector2.MoveTowards existed. lol.
