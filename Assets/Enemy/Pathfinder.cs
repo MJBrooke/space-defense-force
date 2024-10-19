@@ -68,7 +68,7 @@ public class Pathfinder : MonoBehaviour
 
             // If we are not close to the next waypoint, leave our current direction as-is to keep moving there
             var distance = Vector2.Distance(transform.position, _waypoints[_nextWaypointIdx].position);
-            if (Mathf.Abs(distance) > 0.01f)
+            if (Mathf.Abs(distance) > 0.1f)
             {
                 yield return null; // Wait for the next frame
                 continue;
