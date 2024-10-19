@@ -13,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("Wave configurations to be spawned in")]
     [SerializeField] private List<WaveConfig> waveConfigs;
     
+    [Tooltip("Flag indicating if all waves should be looped through infinitely")]
     [SerializeField] private bool isLooping = true;
 
     public bool IsLooping
