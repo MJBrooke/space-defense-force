@@ -12,19 +12,30 @@ public class EnemySpawner : MonoBehaviour
 
     [Tooltip("Wave configurations to be spawned in")]
     [SerializeField] private List<WaveConfig> waveConfigs;
+    
+    [SerializeField] private bool isLooping = true;
 
+    public bool IsLooping
+    {
+        get => isLooping;
+        set => isLooping = value;
+    }
+    
     private void Start() => StartCoroutine(SpawnWaves());
 
     private IEnumerator SpawnWaves()
     {
-        foreach (var waveConfig in waveConfigs)
+        do
         {
-            // Create all enemies in a wave
-            yield return InstantiateEnemies(waveConfig);
+            foreach (var waveConfig in waveConfigs)
+            {
+                // Create all enemies in a wave
+                yield return InstantiateEnemies(waveConfig);
 
-            // Wait some time before starting the next wave
-            yield return new WaitForSeconds(2);
-        }
+                // Wait some time before starting the next wave
+                yield return new WaitForSeconds(2);
+            }
+        } while (isLooping);
     }
 
     private IEnumerator InstantiateEnemies(WaveConfig waveConfig)
