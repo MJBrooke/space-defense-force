@@ -33,5 +33,6 @@ public class WaveConfig : ScriptableObject
     {
         Assert.IsNotNull(pathPrefab, "The path prefab cannot be null.");
         Assert.IsNotNull(enemiesInWave, "The list of enemies in the wave cannot be null.");
+        Assert.IsTrue(enemiesInWave.Count > 0, "The list of enemies in the wave should not be empty.");
     }
 }
