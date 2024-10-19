@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
             instantiatedEnemy.GetComponent<Pathfinder>().SetupFromWaveConfig(waveConfig);
             
             // Wait the given amount of time before spawning the next enemy
-            yield return new WaitForSeconds(waveConfig.TimeBetweenEnemySpawns);
+            yield return new WaitForSeconds(waveConfig.TimeBetweenEnemySpawns + Random.value);
         }
     }
 }
