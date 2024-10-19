@@ -55,7 +55,8 @@ public class Pathfinder : MonoBehaviour
         transform.position += (Vector3)_direction * (waveConfig.MoveSpeed * Time.deltaTime);
 
         // If we are not close to the next waypoint, leave our current direction as-is to keep moving there
-        if (!(Vector2.Distance(transform.position, _waypoints[_nextWaypointIdx].position) < 0.01f)) return;
+        var distance = Vector2.Distance(transform.position, _waypoints[_nextWaypointIdx].position);
+        if (Mathf.Abs(distance) > 0.01f) return;
 
         // Increment target waypoint and check if the path is complete
         if (++_nextWaypointIdx == _waypoints.Count)
