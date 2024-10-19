@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class Pathfinder : MonoBehaviour
 {
-    [SerializeField] private WaveConfig waveConfig;
+    private WaveConfig _waveConfig;
     private List<Transform> _waypoints;
     private int _nextWaypointIdx;
 
@@ -17,7 +17,7 @@ public class Pathfinder : MonoBehaviour
 
     private void Start()
     {
-        _waypoints = waveConfig.Waypoints();
+        _waypoints = _waveConfig.Waypoints();
         // We need at least a starting and ending waypoint to find any path
         if (_waypoints.Count < 2)
         {
@@ -49,7 +49,7 @@ public class Pathfinder : MonoBehaviour
         while (!_pathDone)
         {
             // Move the entity one frame closer to the target location
-            transform.position += (Vector3)_direction * (waveConfig.MoveSpeed * Time.deltaTime);
+            transform.position += (Vector3)_direction * (_waveConfig.MoveSpeed * Time.deltaTime);
 
             // If we are not close to the next waypoint, leave our current direction as-is to keep moving there
             var distance = Vector2.Distance(transform.position, _waypoints[_nextWaypointIdx].position);
@@ -79,7 +79,7 @@ public class Pathfinder : MonoBehaviour
             transform.position = Vector2.MoveTowards(
                 current: transform.position,
                 target: _waypoints[_nextWaypointIdx].position,
-                maxDistanceDelta: waveConfig.MoveSpeed * Time.deltaTime);
+                maxDistanceDelta: _waveConfig.MoveSpeed * Time.deltaTime);
             
             if (transform.position == _waypoints[_nextWaypointIdx].position) _nextWaypointIdx++;
         }
@@ -89,5 +89,10 @@ public class Pathfinder : MonoBehaviour
     private void DestroyGameObject()
     {
         if (_pathDone) Destroy(gameObject);
+    }
+
+    public void SetWaveConfig(WaveConfig waveConfig)
+    {
+        _waveConfig = waveConfig;
     }
 }

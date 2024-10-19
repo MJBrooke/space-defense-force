@@ -16,12 +16,17 @@ public class WaveConfig : ScriptableObject
     [Tooltip("The speed that each enemy will move through the waypoints.")]
     [SerializeField] private float moveSpeed = 5f;
     
+    [Tooltip("Amount of time elapsed between each enemy spawn. Controls wave density.")]
+    [SerializeField] private float timeBetweenEnemySpawns = 0.5f;
+    
     [Tooltip("The list of enemies that will be spawned in this wave.")]
     [SerializeField] private List<GameObject> enemiesInWave;
     
     public float MoveSpeed => moveSpeed;
     
     public List<GameObject> EnemiesInWave => enemiesInWave;
+
+    public float TimeBetweenEnemySpawns => timeBetweenEnemySpawns;
     
     public GameObject Enemy(int idx) => enemiesInWave[idx];
 
