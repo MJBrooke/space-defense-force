@@ -15,12 +15,23 @@ public class WaveConfig : ScriptableObject
     
     [Tooltip("The speed that each enemy will move through the waypoints.")]
     [SerializeField] private float moveSpeed = 5f;
-
+    
+    [Tooltip("The list of enemies that will be spawned in this wave.")]
+    [SerializeField] private List<GameObject> enemiesInWave;
+    
     public float MoveSpeed => moveSpeed;
+    
+    public List<GameObject> EnemiesInWave => enemiesInWave;
+    
+    public GameObject Enemy(int idx) => enemiesInWave[idx];
 
     // Creates a list of the set of waypoint transforms from the prefab object so that a GameObject can reference them easily
     public List<Transform> Waypoints() => pathPrefab.Cast<Transform>().ToList();
     
-    // Prints a friendly message if the config is missing the set of waypoints represented by the Path GameObject
-    private void OnValidate() => Assert.IsNotNull(pathPrefab, "The path prefab cannot be null.");
+    // Prints a friendly message if the config is missing crucial configuration
+    private void OnValidate()
+    {
+        Assert.IsNotNull(pathPrefab, "The path prefab cannot be null.");
+        Assert.IsNotNull(enemiesInWave, "The list of enemies in the wave cannot be null.");
+    }
 }
