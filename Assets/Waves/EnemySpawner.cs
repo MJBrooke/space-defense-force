@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
             instantiatedEnemy.transform.SetParent(gameObject.transform);
             
             // Set the enemy to follow the configuration of this WaveConfig (speed, path etc.)
-            instantiatedEnemy.GetComponent<Pathfinder>().SetWaveConfig(waveConfig);
+            instantiatedEnemy.GetComponent<Pathfinder>().SetupFromWaveConfig(waveConfig);
             
             // Wait the given amount of time before spawning the next enemy
             yield return new WaitForSeconds(waveConfig.TimeBetweenEnemySpawns);

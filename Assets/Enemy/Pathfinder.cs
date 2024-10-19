@@ -8,16 +8,29 @@ using UnityEngine;
 /// </summary>
 public class Pathfinder : MonoBehaviour
 {
-    private WaveConfig _waveConfig;
+    // Stores the set of waypoints that this sprite should move through
     private List<Transform> _waypoints;
+    
+    // Stores the speed at which this sprite should between waypoints
+    private float _moveSpeed;
+    
+    // Stores the index of the next waypoint that this sprite is moving towards
     private int _nextWaypointIdx;
 
+    // Stores the current direction that the sprite is moving (typically towards the next waypoint)
     private Vector2 _direction = Vector2.zero;
+    
+    // Sentinel value representing when a path is finished
     private bool _pathDone;
+
+    public void SetupFromWaveConfig(WaveConfig waveConfig)
+    {
+        _moveSpeed = waveConfig.MoveSpeed;
+        _waypoints = waveConfig.Waypoints();
+    }
 
     private void Start()
     {
-        _waypoints = _waveConfig.Waypoints();
         // We need at least a starting and ending waypoint to find any path
         if (_waypoints.Count < 2)
         {
@@ -28,6 +41,8 @@ public class Pathfinder : MonoBehaviour
 
         // Spawn at the first waypoint
         transform.position = _waypoints[_nextWaypointIdx].position;
+        
+        // Start moving
         StartCoroutine(MoveTowardsNextWaypoint());
     }
 
@@ -49,7 +64,7 @@ public class Pathfinder : MonoBehaviour
         while (!_pathDone)
         {
             // Move the entity one frame closer to the target location
-            transform.position += (Vector3)_direction * (_waveConfig.MoveSpeed * Time.deltaTime);
+            transform.position += (Vector3)_direction * (_moveSpeed * Time.deltaTime);
 
             // If we are not close to the next waypoint, leave our current direction as-is to keep moving there
             var distance = Vector2.Distance(transform.position, _waypoints[_nextWaypointIdx].position);
@@ -79,7 +94,7 @@ public class Pathfinder : MonoBehaviour
             transform.position = Vector2.MoveTowards(
                 current: transform.position,
                 target: _waypoints[_nextWaypointIdx].position,
-                maxDistanceDelta: _waveConfig.MoveSpeed * Time.deltaTime);
+                maxDistanceDelta: _moveSpeed * Time.deltaTime);
             
             if (transform.position == _waypoints[_nextWaypointIdx].position) _nextWaypointIdx++;
         }
@@ -89,10 +104,5 @@ public class Pathfinder : MonoBehaviour
     private void DestroyGameObject()
     {
         if (_pathDone) Destroy(gameObject);
-    }
-
-    public void SetWaveConfig(WaveConfig waveConfig)
-    {
-        _waveConfig = waveConfig;
     }
 }
