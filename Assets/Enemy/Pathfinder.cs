@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,7 +44,7 @@ public class Pathfinder : MonoBehaviour
     //   - I learnt how to move in a direction at a constant rate without using a built-in function for it. Learning FTW.
     //   - I _think_ my float comparison of the position vs the waypoint is safer, given floating point inaccuracies.
     //       I didn't want to assume I could rely on a whole number of 0. Maybe I could have rather used Epsilon?
-    private IEnumerator<int>  MoveTowardsNextWaypoint()
+    private IEnumerator MoveTowardsNextWaypoint()
     {
         while (!_pathDone)
         {
@@ -54,7 +55,7 @@ public class Pathfinder : MonoBehaviour
             var distance = Vector2.Distance(transform.position, _waypoints[_nextWaypointIdx].position);
             if (Mathf.Abs(distance) > 0.01f)
             {
-                yield return 0; // Wait for the next frame
+                yield return null; // Wait for the next frame
                 continue;
             }
 
@@ -62,7 +63,7 @@ public class Pathfinder : MonoBehaviour
             if (++_nextWaypointIdx == _waypoints.Count)
             {
                 _pathDone = true;
-                break;
+                yield break;
             }
 
             // Get a Vector pointing towards the next waypoint. Normalise it to remove the distance and just retain the 'direction'.
