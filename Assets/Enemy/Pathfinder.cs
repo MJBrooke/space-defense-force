@@ -21,7 +21,7 @@ public class Pathfinder : MonoBehaviour
         // We need at least a starting and ending waypoint to find any path
         if (_waypoints.Count < 2)
         {
-            Debug.LogError("Waypoints count is less than 2");
+            Debug.LogError("Waypoints count should not be less than 2");
             _pathDone = true;
             return;
         }
@@ -38,7 +38,7 @@ public class Pathfinder : MonoBehaviour
     //   - I didn't know Vector2.MoveTowards existed, so I 'reinvented the wheel' by calculating direction and movement myself.
     //   - I tried to 'cache' the _direction variable by putting it on the class-layer to avoid creating new allocations in memory.
     //       This was an early and unnecessary optimisation, and made code less testable/readable since _direction is in the outer scope.
-    //   - I overcomplicated the code by trying to keep things less indented. The tutorial version (seen below) is far more readable
+    //   - I overcomplicated the code by trying to keep things less indented with guard-clauses. The tutorial version (seen below) is far more readable
     //       despite the 2x level of indentation.
     // The good thing about this function:
     //   - I learnt how to move in a direction at a constant rate without using a built-in function for it. Learning FTW.
