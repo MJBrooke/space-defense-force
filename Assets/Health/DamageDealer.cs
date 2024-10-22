@@ -8,8 +8,8 @@ public class DamageDealer : MonoBehaviour
     [Tooltip("The amount of damage done to the Health component of the other GameObject that this GameObject collides with")]
     [SerializeField] private float damage = 10f;
     
-    // If the owning GameObject collider with another GameObject, deal damage to it if it can be damaged.
-    // If damage is dealt, destroy the owning GameObject
+    // If the owning GameObject collides with another GameObject, deal damage to it if it is damageable.
+    // If damage is dealt, destroy the owning GameObject.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.TryGetComponent<IDamageable>(out var damageable)) return;
