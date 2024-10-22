@@ -15,6 +15,5 @@ public class DamageDealer : MonoBehaviour
         if (!other.TryGetComponent<IDamageable>(out var damageable)) return;
         
         damageable.TakeDamage(damage);
-        Destroy(gameObject);
     }
 }
