@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /// It ensures that the Player can never move out of bounds of the Viewport.
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
-public class PlayerInput : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Tooltip ("The speed at which the player moves")]
     [SerializeField] private float moveSpeed = 8f;
@@ -39,10 +39,7 @@ public class PlayerInput : MonoBehaviour
         _topRightCorner = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)) - halfPlayerDimension;
     }
 
-    private void Update()
-    {
-        Move();
-    }
+    private void Update() => Move();
 
     private void Move()
     {
@@ -58,8 +55,8 @@ public class PlayerInput : MonoBehaviour
             Mathf.Clamp(transform.position.y + rawMovementForFrame.y, _bottomLeftCorner.y, _topRightCorner.y));
     }
 
-    // OnMove is automatically fired off when 'Move' input is detected by the Input System.
-    private void OnMove(InputValue value) => _movementInput = value.Get<Vector2>();
+    // Assigned to the PlayerInput's 'Move' UnityEvent Callback
+    public void OnMove(InputAction.CallbackContext context) => _movementInput = context.ReadValue<Vector2>();
     
     private bool IsMoving() => _movementInput != Vector2.zero;
 }
