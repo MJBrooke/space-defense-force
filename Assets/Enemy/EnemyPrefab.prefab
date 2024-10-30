@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6522000724668421948}
   - component: {fileID: 1081151993713509406}
   - component: {fileID: 7280816034681093108}
+  - component: {fileID: 5793572841024947517}
   m_Layer: 6
   m_Name: EnemyPrefab
   m_TagString: Enemy
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 569631091
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 60a52db29b427a14a88fdee2614cab8a, type: 3}
   m_Color: {r: 0.6603774, g: 0.07787468, b: 0.090031914, a: 1}
@@ -206,3 +207,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
+--- !u!114 &5793572841024947517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5844965585954001973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa64b904c89e77f4383e41bfc0d6d2b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 1
+  projectilePrefab: {fileID: 7074814845874553940, guid: c90749f645e23ef4e8da110997f04244, type: 3}
+  isFiring: 1
