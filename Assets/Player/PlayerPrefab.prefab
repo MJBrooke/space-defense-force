@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 3818449139110240670}
   m_Layer: 3
   m_Name: PlayerPrefab
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,6 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7168ca17117a7df42b4c3fa5bf362e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 0.25
+  projectilePrefab: {fileID: 7074814845874553940, guid: 4ca96078201ecb44b8a951a7e7c17ca2, type: 3}
 --- !u!114 &9130424477734989057
 MonoBehaviour:
   m_ObjectHideFlags: 0

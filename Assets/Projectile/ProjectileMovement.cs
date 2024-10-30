@@ -13,7 +13,7 @@ public class ProjectileMovement : MonoBehaviour
     }
 
     [Tooltip("Speed at which the projectile travels")]
-    [SerializeField] private float movementSpeed = 10f;
+    [SerializeField] private float movementSpeed = 15f;
 
     [Tooltip("Direction the projectile moves")]
     [SerializeField] private Direction direction;
