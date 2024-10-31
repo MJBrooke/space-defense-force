@@ -8,6 +8,10 @@ public class DamageDealer : MonoBehaviour
     [Tooltip("The amount of damage done to the Health component of the other GameObject that this GameObject collides with")]
     [SerializeField] private float damage = 10f;
     
+    private ParticleSystem _damageParticles;
+
+    private void Start() => _damageParticles = Resources.Load<ParticleSystem>("Projectile Hit Particles");
+
     // If the owning GameObject collides with another GameObject, deal damage to it if it is damageable.
     // If damage is dealt, destroy the owning GameObject.
     private void OnTriggerEnter2D(Collider2D other)
@@ -15,5 +19,6 @@ public class DamageDealer : MonoBehaviour
         if (!other.TryGetComponent<IDamageable>(out var damageable)) return;
         
         damageable.TakeDamage(damage);
+        Instantiate(_damageParticles, transform.position, Quaternion.identity).Play();
     }
 }

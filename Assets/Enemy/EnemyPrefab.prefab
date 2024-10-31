@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
+  damageParticles: {fileID: 6097563312488616830, guid: 17d7fb186f492b246a5e45326f3c5492, type: 3}
 --- !u!114 &5793572841024947517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa64b904c89e77f4383e41bfc0d6d2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 1
   projectilePrefab: {fileID: 7074814845874553940, guid: c90749f645e23ef4e8da110997f04244, type: 3}
+  fireRate: 1
   isFiring: 1

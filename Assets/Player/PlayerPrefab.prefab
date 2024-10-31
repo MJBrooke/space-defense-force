@@ -298,7 +298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7168ca17117a7df42b4c3fa5bf362e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shooterScript: {fileID: 3511397731881848766}
 --- !u!114 &9130424477734989057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
+  damageParticles: {fileID: 6097563312488616830, guid: 17d7fb186f492b246a5e45326f3c5492, type: 3}
 --- !u!114 &3511397731881848766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa64b904c89e77f4383e41bfc0d6d2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0.25
   projectilePrefab: {fileID: 7074814845874553940, guid: 4ca96078201ecb44b8a951a7e7c17ca2, type: 3}
+  fireRate: 0.25
   isFiring: 0

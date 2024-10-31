@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Shooting))]
 public class PlayerShooting : MonoBehaviour
 {
+    // Instead of using composition, we could also have used inheritance where PlayerShooter inherits from Shooter
     private Shooting _shooterScript;
 
     private void Start() => _shooterScript = GetComponent<Shooting>();
