@@ -19,6 +19,13 @@ public class DamageDealer : MonoBehaviour
         if (!other.TryGetComponent<IDamageable>(out var damageable)) return;
         
         damageable.TakeDamage(damage);
-        Instantiate(_damageParticles, transform.position, Quaternion.identity).Play();
+        PlayParticles();
+    }
+
+    private void PlayParticles()
+    {
+        var particles = Instantiate(_damageParticles, transform.position, Quaternion.identity);
+        particles.Play();
+        Destroy(particles.gameObject, particles.main.duration);
     }
 }
