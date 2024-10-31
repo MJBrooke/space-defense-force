@@ -1,10 +1,12 @@
 using UnityEngine;
 
 /// <summary>
-/// OnCollision, if the object being collided with has a Health component, deal damage to it
+/// OnCollision, if the object being collided with has a Health component, deal damage to it and play associated effects
 /// </summary>
 public class DamageDealer : MonoBehaviour
 {
+    // TODO - use inheritance to create a separate DamageDealer for the Player and the Enemy, rather than using tags
+    
     [Tooltip("The amount of damage done to the Health component of the other GameObject that this GameObject collides with")]
     [SerializeField] private float damage = 10f;
     
@@ -20,6 +22,13 @@ public class DamageDealer : MonoBehaviour
         
         damageable.TakeDamage(damage);
         PlayParticles();
+        ShakeCamera(other);
+    }
+
+    private void ShakeCamera(Collider2D other)
+    {
+        // We could also achieve this with a Serialized field
+        if (other.gameObject.CompareTag("Player")) CameraShake.Instance.Play();
     }
 
     private void PlayParticles()
